@@ -1,5 +1,9 @@
 package com.wora.coupesdefootball.Service.Impl;
+import com.wora.coupesdefootball.Entity.Players;
 import com.wora.coupesdefootball.Exception.EntityNotFoundException;
+import com.wora.coupesdefootball.Mapper.PlayersMapper;
+import com.wora.coupesdefootball.Repository.PlayersRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wora.coupesdefootball.Repository.TeamRepository;
 import com.wora.coupesdefootball.DTO.Team.CreateTeamDTO;
@@ -20,15 +24,26 @@ public class TeamServiceImpl implements TeamService {
 
     @Autowired
     private TeamRepository teamRepository;
-
     @Autowired
     private TeamMapper teamMapper;
+    @Autowired
+    private PlayersMapper playersMapper;
+    @Autowired
+    private PlayersRepository playersRepository;
 
     @Override
     public ResponseTeamDTO createTeam(CreateTeamDTO createTeamDTO) {
         Team entity = teamMapper.toEntity(createTeamDTO);
+
+
+        List<ObjectId> playersIds = createTeamDTO.getPlayers().stream().map(Player -> {
+            Players pl = playersMapper.toEntity(Player);
+            return playersRepository.save(pl).getId();
+        }).toList();
+
+        entity.setPlayers(playersIds);
         Team team = teamRepository.save(entity);
-        return teamMapper.toResponse(entity);
+        return teamMapper.toResponse(team);
     }
 
     @Override
