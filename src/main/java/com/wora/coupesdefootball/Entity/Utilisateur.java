@@ -22,5 +22,5 @@ public class Utilisateur {
     private String password;
 
     @NotNull
-    private ARole role;
+    private ARole Arole;
 }

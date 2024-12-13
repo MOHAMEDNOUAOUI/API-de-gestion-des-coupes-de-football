@@ -9,6 +9,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface TeamMapper {
 
+
+//    @Mapping(target = "players", ignore = true)
     Team toEntity(CreateTeamDTO createTeamDto);
     ResponseTeamDTO toResponse(Team team);
 }

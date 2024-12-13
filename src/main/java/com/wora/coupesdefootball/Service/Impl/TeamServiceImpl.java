@@ -1,4 +1,5 @@
 package com.wora.coupesdefootball.Service.Impl;
+import com.wora.coupesdefootball.DTO.Players.ResponsePlayersDTO;
 import com.wora.coupesdefootball.Entity.Players;
 import com.wora.coupesdefootball.Exception.EntityNotFoundException;
 import com.wora.coupesdefootball.Mapper.PlayersMapper;
@@ -52,11 +53,18 @@ public class TeamServiceImpl implements TeamService {
         if (teams.isEmpty()){
             throw new RuntimeException("The are no teams yet");
         }
-        return teams.map(teamMapper::toResponse);
+        return teams.map(team -> {
+            System.out.println(team.getName());
+            List<Players> players = playersRepository.findAllById(team.getPlayers());
+            List<ResponsePlayersDTO> responsePlayersDTOs = players.stream().map(playersMapper::toResponse).toList();
+            ResponseTeamDTO responseTeamDTO = teamMapper.toResponse(team);
+            responseTeamDTO.setPlayers(responsePlayersDTOs);
+            return responseTeamDTO;
+        });
     }
 
     @Override
-    public ResponseTeamDTO getTeamById(String id) {
+    public ResponseTeamDTO getTeamById(ObjectId id) {
         if(teamRepository.existsById(id)){
             Team team = teamRepository.findById(id).get();
             return teamMapper.toResponse(team);
@@ -67,7 +75,7 @@ public class TeamServiceImpl implements TeamService {
 
 
     @Override
-    public boolean deleteTeam(String id) {
+    public boolean deleteTeam(ObjectId id) {
         Optional<Team> team = teamRepository.findById(id);
         if (team.isPresent()){
             teamRepository.deleteById(id);
@@ -79,7 +87,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
      @Override
-    public ResponseTeamDTO updateTeam(CreateTeamDTO createTeamDTO , String id) {
+    public ResponseTeamDTO updateTeam(CreateTeamDTO createTeamDTO , ObjectId id) {
         return null;
     }
 }

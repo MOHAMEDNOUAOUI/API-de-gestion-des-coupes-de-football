@@ -2,6 +2,7 @@ package com.wora.coupesdefootball.Service;
 import com.wora.coupesdefootball.DTO.Utilisateur.CreateUtilisateurDTO;
 import com.wora.coupesdefootball.DTO.Utilisateur.ResponseUtilisateurDTO;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,8 +11,8 @@ public interface  UtilisateurService {
 
     void register(CreateUtilisateurDTO createUtilisateurDTO);
     Page<ResponseUtilisateurDTO> getAllUtilisateurs(Pageable pageable);
-    ResponseUtilisateurDTO getUtilisateurById(String id);
-    ResponseUtilisateurDTO updateUtilisateur(CreateUtilisateurDTO createUtilisateurDTO , String id);
-    boolean deleteUtilisateur(String id);
+    ResponseUtilisateurDTO getUtilisateurById(ObjectId id);
+    ResponseUtilisateurDTO updateUtilisateur(CreateUtilisateurDTO createUtilisateurDTO , ObjectId id);
+    boolean deleteUtilisateur(ObjectId id);
 
 }

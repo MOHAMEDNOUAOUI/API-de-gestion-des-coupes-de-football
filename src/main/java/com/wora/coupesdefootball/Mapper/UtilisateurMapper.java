@@ -9,10 +9,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UtilisateurMapper {
 
-    Utilisateur toEntity(CreateUtilisateurDTO createUtilisateurDto);
-    @Mapping(source = "id" , target = "id")
     @Mapping(source = "username" , target = "username")
     @Mapping(source = "password" , target = "password")
-    @Mapping(source = "role" , target = "role")
+    @Mapping(source = "role" , target = "Arole")
+    Utilisateur toEntity(CreateUtilisateurDTO createUtilisateurDto);
+
     ResponseUtilisateurDTO toResponse(Utilisateur utilisateur);
 }

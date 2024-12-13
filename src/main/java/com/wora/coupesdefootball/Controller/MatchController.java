@@ -2,6 +2,7 @@ package com.wora.coupesdefootball.Controller;
 
 import com.wora.coupesdefootball.Service.MatchService;
 import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,13 +33,13 @@ public class MatchController {
     }
 
     @GetMapping("/{matchId}")
-    public ResponseEntity<ResponseMatchDTO> getMatchById(@PathVariable("matchId") String  id){
+    public ResponseEntity<ResponseMatchDTO> getMatchById(@PathVariable("matchId") ObjectId  id){
         ResponseMatchDTO response = matchService.getMatchById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
     @DeleteMapping("/{matchId}")
-    public ResponseEntity<?> deleteMatchById(@PathVariable("matchId") String id){
+    public ResponseEntity<?> deleteMatchById(@PathVariable("matchId") ObjectId id){
         if(matchService.deleteMatch(id)){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted Succefully");
         }
@@ -46,7 +47,7 @@ public class MatchController {
     }
 
     @PatchMapping("/{matchId}")
-    public ResponseEntity<ResponseMatchDTO> updateMatch(@RequestBody CreateMatchDTO createMatchDTO , @PathVariable("matchId") String  id){
+    public ResponseEntity<ResponseMatchDTO> updateMatch(@RequestBody CreateMatchDTO createMatchDTO , @PathVariable("matchId") ObjectId id){
         ResponseMatchDTO response = matchService.updateMatch(createMatchDTO , id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

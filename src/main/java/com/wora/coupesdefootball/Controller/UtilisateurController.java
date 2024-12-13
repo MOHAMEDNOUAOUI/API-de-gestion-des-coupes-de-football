@@ -2,6 +2,7 @@ package com.wora.coupesdefootball.Controller;
 
 import com.wora.coupesdefootball.Service.UtilisateurService;
 import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,20 +21,20 @@ public class UtilisateurController {
     private final UtilisateurService utilisateurService;
 
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/users")
     public ResponseEntity<Page<ResponseUtilisateurDTO>> getAllUtilisateurs(Pageable pageable) {
         Page<ResponseUtilisateurDTO> response = utilisateurService.getAllUtilisateurs(pageable);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
     @GetMapping("/admin/{utilisateurId}")
-    public ResponseEntity<ResponseUtilisateurDTO> getUtilisateurById(@PathVariable("utilisateurId") String id){
+    public ResponseEntity<ResponseUtilisateurDTO> getUtilisateurById(@PathVariable("utilisateurId") ObjectId id){
         ResponseUtilisateurDTO response = utilisateurService.getUtilisateurById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
     @DeleteMapping("/admin/{utilisateurId}")
-    public ResponseEntity<?> deleteUtilisateurById(@PathVariable("utilisateurId") String id){
+    public ResponseEntity<?> deleteUtilisateurById(@PathVariable("utilisateurId") ObjectId id){
         if(utilisateurService.deleteUtilisateur(id)){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted Succefully");
         }
@@ -41,7 +42,7 @@ public class UtilisateurController {
     }
 
     @PatchMapping("/admin/{utilisateurId}")
-    public ResponseEntity<ResponseUtilisateurDTO> updateUtilisateur(@RequestBody CreateUtilisateurDTO createUtilisateurDTO , @PathVariable("utilisateurId") String id){
+    public ResponseEntity<ResponseUtilisateurDTO> updateUtilisateur(@RequestBody CreateUtilisateurDTO createUtilisateurDTO , @PathVariable("utilisateurId") ObjectId id){
         ResponseUtilisateurDTO response = utilisateurService.updateUtilisateur(createUtilisateurDTO , id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

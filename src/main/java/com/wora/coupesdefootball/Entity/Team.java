@@ -16,7 +16,7 @@ import java.util.List;
 @Document(collection = "teams")
 public class Team {
     @Id
-    private String id;
+    private ObjectId id;
     @NotBlank
     private String name;
     @NotBlank

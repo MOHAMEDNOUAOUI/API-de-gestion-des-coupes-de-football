@@ -2,6 +2,7 @@ package com.wora.coupesdefootball.Service.Impl;
 import com.wora.coupesdefootball.Exception.EntityNotFoundException;
 import com.wora.coupesdefootball.Exception.UtilisateurFound;
 import jakarta.validation.constraints.NotBlank;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wora.coupesdefootball.Repository.UtilisateurRepository;
 import com.wora.coupesdefootball.DTO.Utilisateur.CreateUtilisateurDTO;
@@ -53,7 +54,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public ResponseUtilisateurDTO getUtilisateurById(String id) {
+    public ResponseUtilisateurDTO getUtilisateurById(ObjectId id) {
         if(utilisateurRepository.existsById(id)){
             Utilisateur utilisateur = utilisateurRepository.findById(id).get();
             return utilisateurMapper.toResponse(utilisateur);
@@ -64,7 +65,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 
     @Override
-    public boolean deleteUtilisateur(String id) {
+    public boolean deleteUtilisateur(ObjectId id) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
         if (utilisateur.isPresent()){
             utilisateurRepository.deleteById(id);
@@ -76,7 +77,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
      @Override
-    public ResponseUtilisateurDTO updateUtilisateur(CreateUtilisateurDTO createUtilisateurDTO , String id) {
+    public ResponseUtilisateurDTO updateUtilisateur(CreateUtilisateurDTO createUtilisateurDTO , ObjectId id) {
         return null;
     }
 }

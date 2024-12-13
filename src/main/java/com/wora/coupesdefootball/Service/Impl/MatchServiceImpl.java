@@ -1,5 +1,6 @@
 package com.wora.coupesdefootball.Service.Impl;
 import com.wora.coupesdefootball.Exception.EntityNotFoundException;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wora.coupesdefootball.Repository.MatchRepository;
 import com.wora.coupesdefootball.DTO.Match.CreateMatchDTO;
@@ -41,7 +42,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public ResponseMatchDTO getMatchById(String id) {
+    public ResponseMatchDTO getMatchById(ObjectId id) {
         if(matchRepository.existsById(id)){
             Match match = matchRepository.findById(id).get();
             return matchMapper.toResponse(match);
@@ -51,13 +52,13 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public ResponseMatchDTO updateMatch(CreateMatchDTO createMatchDTO, String id) {
+    public ResponseMatchDTO updateMatch(CreateMatchDTO createMatchDTO, ObjectId id) {
         return null;
     }
 
 
     @Override
-    public boolean deleteMatch(String id) {
+    public boolean deleteMatch(ObjectId id) {
         Optional<Match> match = matchRepository.findById(id);
         if (match.isPresent()){
             matchRepository.deleteById(id);
