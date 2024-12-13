@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "team")
+@Document(collection = "teams")
 public class Team {
     @Id
     private String id;
@@ -21,6 +21,5 @@ public class Team {
     private String name;
     @NotBlank
     private String city;
-
-    private List<ObjectId> playersIds;
+    private List<ObjectId> players;
 }

@@ -18,16 +18,5 @@ public class Round {
     private String id;
     private int roundNumber;
     private ObjectId competitionId;
-    private List<MatchDetails> matches;
-
-
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class MatchDetails{
-        private String matchId;
-        private String team1;
-        private String team2;
-        private Match.MatchResult result;
-    }
+    private List<ObjectId> matches;
 }

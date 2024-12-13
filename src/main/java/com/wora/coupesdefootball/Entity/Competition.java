@@ -14,7 +14,7 @@ import java.util.List;
 @Document(collection = "competition")
 public class Competition {
     @Id
-    private String id;
+    private ObjectId id;
     private String name;
     private int numberOfTeams;
     private List<ObjectId> teamIds;

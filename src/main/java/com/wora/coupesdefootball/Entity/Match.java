@@ -15,11 +15,12 @@ import java.util.List;
 @Document(collection = "match")
 public class Match {
     @Id
-    private String id;
+    private ObjectId id;
     private int round;
-    private String team1;
-    private String team2;
+    private ObjectId team1;
+    private ObjectId team2;
     private MatchResult result;
+    private ObjectId winner;
 
     @Data
     @NoArgsConstructor

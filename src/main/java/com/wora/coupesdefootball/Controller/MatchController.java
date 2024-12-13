@@ -13,19 +13,19 @@ import com.wora.coupesdefootball.DTO.Match.CreateMatchDTO;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/match")
+@RequestMapping("/api")
 @AllArgsConstructor
 public class MatchController {
 
     private final MatchService matchService;
 
-    @PostMapping
+    @PostMapping("/operator/matches/results")
     public ResponseEntity<ResponseMatchDTO> createMatch(@RequestBody @Valid CreateMatchDTO createMatchDTO) {
         ResponseMatchDTO response = matchService.createMatch(createMatchDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping
+    @GetMapping("/public/results")
     public ResponseEntity<Page<ResponseMatchDTO>> getAllMatchs(Pageable pageable) {
         Page<ResponseMatchDTO> response = matchService.getAllMatchs(pageable);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);

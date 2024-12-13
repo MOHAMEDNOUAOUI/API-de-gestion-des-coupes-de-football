@@ -13,26 +13,26 @@ import com.wora.coupesdefootball.DTO.Utilisateur.CreateUtilisateurDTO;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/utilisateur")
+@RequestMapping("/api")
 @AllArgsConstructor
 public class UtilisateurController {
 
     private final UtilisateurService utilisateurService;
 
 
-    @GetMapping
+    @GetMapping("/admin")
     public ResponseEntity<Page<ResponseUtilisateurDTO>> getAllUtilisateurs(Pageable pageable) {
         Page<ResponseUtilisateurDTO> response = utilisateurService.getAllUtilisateurs(pageable);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
-    @GetMapping("/{utilisateurId}")
+    @GetMapping("/admin/{utilisateurId}")
     public ResponseEntity<ResponseUtilisateurDTO> getUtilisateurById(@PathVariable("utilisateurId") String id){
         ResponseUtilisateurDTO response = utilisateurService.getUtilisateurById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
-    @DeleteMapping("/{utilisateurId}")
+    @DeleteMapping("/admin/{utilisateurId}")
     public ResponseEntity<?> deleteUtilisateurById(@PathVariable("utilisateurId") String id){
         if(utilisateurService.deleteUtilisateur(id)){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted Succefully");
@@ -40,7 +40,7 @@ public class UtilisateurController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Something went wrong");
     }
 
-    @PatchMapping("/{utilisateurId}")
+    @PatchMapping("/admin/{utilisateurId}")
     public ResponseEntity<ResponseUtilisateurDTO> updateUtilisateur(@RequestBody CreateUtilisateurDTO createUtilisateurDTO , @PathVariable("utilisateurId") String id){
         ResponseUtilisateurDTO response = utilisateurService.updateUtilisateur(createUtilisateurDTO , id);
         return ResponseEntity.status(HttpStatus.OK).body(response);

@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api")
 public class AuthController {
 
     private final UtilisateurService utilisateurService;
     private final AuthService authService;
 
-    @PostMapping("/register")
+    @PostMapping("/public/register")
     public ResponseEntity<String> register(@RequestBody @Valid CreateUtilisateurDTO createUtilisateurDTO) {
         utilisateurService.register(createUtilisateurDTO);
         return ResponseEntity.ok("Registred Succefully");
     }
 
-    @PostMapping("/login")
+    @PostMapping("/public/login")
     public ResponseEntity<String> login(@RequestBody @Valid LoginDTO loginDTO){
         String token = authService.login(loginDTO);
         return ResponseEntity.ok(token);

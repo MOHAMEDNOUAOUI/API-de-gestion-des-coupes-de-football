@@ -3,6 +3,7 @@ import com.wora.coupesdefootball.Entity.Enum.ARole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "utilisateur")
 public class Utilisateur {
     @Id
-    private String id;
+    private ObjectId id;
 
     @NotBlank
     private String username;
