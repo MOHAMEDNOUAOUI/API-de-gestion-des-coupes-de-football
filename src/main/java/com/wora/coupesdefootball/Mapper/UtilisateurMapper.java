@@ -10,5 +10,9 @@ import org.mapstruct.Mapping;
 public interface UtilisateurMapper {
 
     Utilisateur toEntity(CreateUtilisateurDTO createUtilisateurDto);
+    @Mapping(source = "id" , target = "id")
+    @Mapping(source = "username" , target = "username")
+    @Mapping(source = "password" , target = "password")
+    @Mapping(source = "role" , target = "role")
     ResponseUtilisateurDTO toResponse(Utilisateur utilisateur);
 }

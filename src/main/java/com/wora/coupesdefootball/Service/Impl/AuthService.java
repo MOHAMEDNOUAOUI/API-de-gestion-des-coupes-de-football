@@ -6,8 +6,12 @@ import com.wora.coupesdefootball.DTO.Auth.LoginDTO;
 import com.wora.coupesdefootball.Entity.Utilisateur;
 import com.wora.coupesdefootball.Repository.UtilisateurRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,7 @@ public class AuthService {
     private final UtilisateurRepository utilisateurRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
 
     public String login(LoginDTO loginDTO){
@@ -31,13 +36,19 @@ public class AuthService {
             throw new RuntimeException("invalid Password");
         }
 
-        return jwtTokenUtil.generateToken(
+        Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
-                        null,
+                        loginDTO.getPassword(),
                         List.of(new SimpleGrantedAuthority(user.getRole().name()))
                 )
         );
+
+
+        String token =  jwtTokenUtil.generateToken(authentication);
+
+        System.out.println(token);
+        return token;
     }
 
 }

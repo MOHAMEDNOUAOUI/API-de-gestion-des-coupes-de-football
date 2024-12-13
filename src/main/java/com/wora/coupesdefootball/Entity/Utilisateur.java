@@ -1,10 +1,8 @@
 package com.wora.coupesdefootball.Entity;
-import com.wora.coupesdefootball.Entity.Enum.Role;
+import com.wora.coupesdefootball.Entity.Enum.ARole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,5 +21,5 @@ public class Utilisateur {
     private String password;
 
     @NotNull
-    private Role role;
+    private ARole role;
 }

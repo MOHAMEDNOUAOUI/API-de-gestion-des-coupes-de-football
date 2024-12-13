@@ -1,6 +1,7 @@
 package com.wora.coupesdefootball.Controller;
 
 import com.wora.coupesdefootball.Service.UtilisateurService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +14,10 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/utilisateur")
+@AllArgsConstructor
 public class UtilisateurController {
 
-    @Autowired
-    private UtilisateurService utilisateurService;
+    private final UtilisateurService utilisateurService;
 
 
     @GetMapping

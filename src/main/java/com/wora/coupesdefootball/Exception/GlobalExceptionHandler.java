@@ -35,18 +35,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(HandlerMethodValidationException.class)
-    public ResponseEntity<ErrorDTO> handleHandlerMethodValidationException(HandlerMethodValidationException ex) {
-        List<String> errors = ex.getAllValidationResults()
-                .stream()
-                .flatMap(result -> result.getResolvableErrors().stream())
-                .map(error -> error.getDefaultMessage())
-                .collect(Collectors.toList());
-
-        String message = String.join(", ", errors);
-        ErrorDTO errorResponse = new ErrorDTO(LocalDateTime.now(), message);
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorDTO> handleConstraintViolationException(ConstraintViolationException ex) {

@@ -1,10 +1,13 @@
 package com.wora.coupesdefootball.Service.Impl;
 import com.wora.coupesdefootball.Exception.EntityNotFoundException;
 import com.wora.coupesdefootball.Exception.UtilisateurFound;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wora.coupesdefootball.Repository.UtilisateurRepository;
 import com.wora.coupesdefootball.DTO.Utilisateur.CreateUtilisateurDTO;
 import com.wora.coupesdefootball.DTO.Utilisateur.ResponseUtilisateurDTO;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.wora.coupesdefootball.Service.UtilisateurService;
 import com.wora.coupesdefootball.Mapper.UtilisateurMapper;
@@ -22,6 +25,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     private UtilisateurRepository utilisateurRepository;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UtilisateurMapper utilisateurMapper;
 
     @Override
@@ -31,8 +37,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             throw new UtilisateurFound("Utilisateur found already");
         }
         Utilisateur entity = utilisateurMapper.toEntity(createUtilisateurDTO);
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         utilisateurRepository.save(entity);
     }
+
+
 
     @Override
     public Page<ResponseUtilisateurDTO> getAllUtilisateurs(Pageable pageable) {

@@ -17,8 +17,8 @@ public class Match {
     @Id
     private String id;
     private int round;
-    private ObjectId team1;
-    private ObjectId team2;
+    private String team1;
+    private String team2;
     private MatchResult result;
 
     @Data

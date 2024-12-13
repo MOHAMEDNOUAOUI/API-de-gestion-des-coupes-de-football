@@ -1,6 +1,7 @@
 package com.wora.coupesdefootball.Controller;
 
 import com.wora.coupesdefootball.Service.MatchService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +14,10 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/match")
+@AllArgsConstructor
 public class MatchController {
 
-    @Autowired
-    private MatchService matchService;
+    private final MatchService matchService;
 
     @PostMapping
     public ResponseEntity<ResponseMatchDTO> createMatch(@RequestBody @Valid CreateMatchDTO createMatchDTO) {

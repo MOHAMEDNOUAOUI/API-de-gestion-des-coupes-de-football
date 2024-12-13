@@ -1,8 +1,10 @@
 package com.wora.coupesdefootball.DTO.Match;
 
+import com.wora.coupesdefootball.DTO.Match.MatchResult.ResponseMatchResultDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
@@ -17,18 +19,4 @@ public class ResponseMatchDTO {
     private String team2;
     private ResponseMatchResultDTO result;
     private String winner;
-
-    public static class ResponseMatchResultDTO {
-        private int team1Goals;
-        private int team2Goals;
-        private List<ResponsePlayerStatisticDTO> statistics;
-    }
-
-    public static class ResponsePlayerStatisticDTO {
-        private String playerId;
-        private int goals;
-        private int assists;
-        private int yellowCards;
-        private int redCards;
-    }
 }

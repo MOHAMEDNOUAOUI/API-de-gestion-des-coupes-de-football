@@ -5,6 +5,7 @@
     import jakarta.servlet.http.HttpServletRequest;
     import jakarta.servlet.http.HttpServletResponse;
     import lombok.RequiredArgsConstructor;
+    import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.security.core.Authentication;
     import org.springframework.security.core.context.SecurityContextHolder;
     import org.springframework.stereotype.Component;
@@ -16,8 +17,10 @@
     @Component
     public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-        private final JwtTokenUtil jwtTokenUtil;
-        private final UserDetailService userDetailService;
+        @Autowired
+        private JwtTokenUtil jwtTokenUtil;
+        @Autowired
+        private CustomUserDetailService customUserDetailService;
 
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -28,7 +31,7 @@
                 try {
                     if (jwtTokenUtil.validateToken(token)) {
                         String username = jwtTokenUtil.getUsernameFromToken(token);
-                        Authentication authentication = jwtTokenUtil.getAuthentication(token, userDetailService);
+                        Authentication authentication = jwtTokenUtil.getAuthentication(token, customUserDetailService);
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                         logger.info("Successfully authenticated user: {}");
                     }
