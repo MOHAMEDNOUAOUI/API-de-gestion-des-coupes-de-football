@@ -28,13 +28,13 @@ public class UtilisateurController {
     }
 
     @GetMapping("/admin/{utilisateurId}")
-    public ResponseEntity<ResponseUtilisateurDTO> getUtilisateurById(@PathVariable("utilisateurId") ObjectId id){
+    public ResponseEntity<ResponseUtilisateurDTO> getUtilisateurById(@PathVariable("utilisateurId") String id){
         ResponseUtilisateurDTO response = utilisateurService.getUtilisateurById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
     @DeleteMapping("/admin/{utilisateurId}")
-    public ResponseEntity<?> deleteUtilisateurById(@PathVariable("utilisateurId") ObjectId id){
+    public ResponseEntity<?> deleteUtilisateurById(@PathVariable("utilisateurId") String id){
         if(utilisateurService.deleteUtilisateur(id)){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted Succefully");
         }
@@ -42,7 +42,7 @@ public class UtilisateurController {
     }
 
     @PatchMapping("/admin/{utilisateurId}")
-    public ResponseEntity<ResponseUtilisateurDTO> updateUtilisateur(@RequestBody CreateUtilisateurDTO createUtilisateurDTO , @PathVariable("utilisateurId") ObjectId id){
+    public ResponseEntity<ResponseUtilisateurDTO> updateUtilisateur(@RequestBody CreateUtilisateurDTO createUtilisateurDTO , @PathVariable("utilisateurId") String id){
         ResponseUtilisateurDTO response = utilisateurService.updateUtilisateur(createUtilisateurDTO , id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

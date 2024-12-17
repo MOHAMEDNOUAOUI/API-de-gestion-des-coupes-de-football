@@ -1,7 +1,8 @@
 package com.wora.coupesdefootball.DTO.Utilisateur;
 
-import com.wora.coupesdefootball.Entity.Enum.ARole;
+import com.wora.coupesdefootball.Entity.Enum.RoleType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,6 @@ public class CreateUtilisateurDTO {
     private String username;
     @NotBlank
     private String password;
-
-    private ARole role = ARole.ROLE_USER;
+    @NotNull
+    private RoleType role = RoleType.ROLE_CLIENT;
 }

@@ -1,5 +1,5 @@
 package com.wora.coupesdefootball.Entity;
-import com.wora.coupesdefootball.Entity.Enum.ARole;
+import com.wora.coupesdefootball.Entity.Enum.RoleType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -22,5 +22,9 @@ public class Utilisateur {
     private String password;
 
     @NotNull
-    private ARole Arole;
+    private RoleType role;
+
+    public String getId() {
+        return id != null ? id.toHexString() : null;
+    }
 }

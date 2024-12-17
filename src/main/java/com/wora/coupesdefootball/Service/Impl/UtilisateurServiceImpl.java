@@ -38,6 +38,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             throw new UtilisateurFound("Utilisateur found already");
         }
         Utilisateur entity = utilisateurMapper.toEntity(createUtilisateurDTO);
+        System.out.println(entity.getUsername());
+        System.out.println(entity.getPassword());
         entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         utilisateurRepository.save(entity);
     }
@@ -54,7 +56,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public ResponseUtilisateurDTO getUtilisateurById(ObjectId id) {
+    public ResponseUtilisateurDTO getUtilisateurById(String id) {
         if(utilisateurRepository.existsById(id)){
             Utilisateur utilisateur = utilisateurRepository.findById(id).get();
             return utilisateurMapper.toResponse(utilisateur);
@@ -65,7 +67,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 
     @Override
-    public boolean deleteUtilisateur(ObjectId id) {
+    public boolean deleteUtilisateur(String id) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
         if (utilisateur.isPresent()){
             utilisateurRepository.deleteById(id);
@@ -77,7 +79,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
      @Override
-    public ResponseUtilisateurDTO updateUtilisateur(CreateUtilisateurDTO createUtilisateurDTO , ObjectId id) {
+    public ResponseUtilisateurDTO updateUtilisateur(CreateUtilisateurDTO createUtilisateurDTO , String id) {
         return null;
     }
 }

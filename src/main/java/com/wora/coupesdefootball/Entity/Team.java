@@ -22,4 +22,8 @@ public class Team {
     @NotBlank
     private String city;
     private List<ObjectId> players;
+
+    public String getId() {
+        return id != null ? id.toHexString() : null;
+    }
 }

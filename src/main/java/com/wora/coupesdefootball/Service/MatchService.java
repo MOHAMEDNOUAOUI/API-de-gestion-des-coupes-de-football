@@ -11,8 +11,8 @@ public interface  MatchService {
 
     ResponseMatchDTO createMatch(CreateMatchDTO createMatchDTO);
     Page<ResponseMatchDTO> getAllMatchs(Pageable pageable);
-    ResponseMatchDTO getMatchById(ObjectId id);
-    ResponseMatchDTO updateMatch(CreateMatchDTO createMatchDTO , ObjectId id);
-    boolean deleteMatch(ObjectId id);
+    ResponseMatchDTO getMatchById(String id);
+    ResponseMatchDTO updateMatch(CreateMatchDTO createMatchDTO , String id);
+    boolean deleteMatch(String id);
 
 }

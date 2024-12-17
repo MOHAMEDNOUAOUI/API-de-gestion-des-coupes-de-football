@@ -11,8 +11,8 @@ public interface  TeamService {
 
     ResponseTeamDTO createTeam(CreateTeamDTO createTeamDTO);
     Page<ResponseTeamDTO> getAllTeams(Pageable pageable);
-    ResponseTeamDTO getTeamById(ObjectId id);
-    ResponseTeamDTO updateTeam(CreateTeamDTO createTeamDTO , ObjectId id);
-    boolean deleteTeam(ObjectId id);
+    ResponseTeamDTO getTeamById(String id);
+    ResponseTeamDTO updateTeam(CreateTeamDTO createTeamDTO , String id);
+    boolean deleteTeam(String id);
 
 }

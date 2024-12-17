@@ -33,13 +33,13 @@ public class MatchController {
     }
 
     @GetMapping("/{matchId}")
-    public ResponseEntity<ResponseMatchDTO> getMatchById(@PathVariable("matchId") ObjectId  id){
+    public ResponseEntity<ResponseMatchDTO> getMatchById(@PathVariable("matchId") String  id){
         ResponseMatchDTO response = matchService.getMatchById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
     @DeleteMapping("/{matchId}")
-    public ResponseEntity<?> deleteMatchById(@PathVariable("matchId") ObjectId id){
+    public ResponseEntity<?> deleteMatchById(@PathVariable("matchId") String id){
         if(matchService.deleteMatch(id)){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted Succefully");
         }
@@ -47,7 +47,7 @@ public class MatchController {
     }
 
     @PatchMapping("/{matchId}")
-    public ResponseEntity<ResponseMatchDTO> updateMatch(@RequestBody CreateMatchDTO createMatchDTO , @PathVariable("matchId") ObjectId id){
+    public ResponseEntity<ResponseMatchDTO> updateMatch(@RequestBody CreateMatchDTO createMatchDTO , @PathVariable("matchId") String id){
         ResponseMatchDTO response = matchService.updateMatch(createMatchDTO , id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

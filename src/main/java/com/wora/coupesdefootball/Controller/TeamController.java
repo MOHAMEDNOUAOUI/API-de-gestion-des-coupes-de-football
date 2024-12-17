@@ -19,7 +19,7 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    @PostMapping("/admin/teams")
+    @PostMapping("/admin/createteams")
     public ResponseEntity<ResponseTeamDTO> createTeam(@RequestBody @Valid CreateTeamDTO createTeamDTO) {
         ResponseTeamDTO response = teamService.createTeam(createTeamDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -31,22 +31,22 @@ public class TeamController {
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
-    @GetMapping("/admin/{teamId}")
-    public ResponseEntity<ResponseTeamDTO> getTeamById(@PathVariable("teamId") ObjectId id){
+    @GetMapping("/admin/teams/{teamId}")
+    public ResponseEntity<ResponseTeamDTO> getTeamById(@PathVariable("teamId") String id){
         ResponseTeamDTO response = teamService.getTeamById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
-    @DeleteMapping("/admin/{teamId}")
-    public ResponseEntity<?> deleteTeamById(@PathVariable("teamId") ObjectId id){
+    @DeleteMapping("/admin/teams/delete/{teamId}")
+    public ResponseEntity<?> deleteTeamById(@PathVariable("teamId") String id){
         if(teamService.deleteTeam(id)){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted Succefully");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Something went wrong");
     }
 
-    @PatchMapping("/admin/{teamId}")
-    public ResponseEntity<ResponseTeamDTO> updateTeam(@RequestBody CreateTeamDTO createTeamDTO , @PathVariable("teamId") ObjectId id){
+    @PatchMapping("/admin/teams/update/{teamId}")
+    public ResponseEntity<ResponseTeamDTO> updateTeam(@RequestBody CreateTeamDTO createTeamDTO , @PathVariable("teamId") String id){
         ResponseTeamDTO response = teamService.updateTeam(createTeamDTO , id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

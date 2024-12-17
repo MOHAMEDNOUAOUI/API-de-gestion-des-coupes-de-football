@@ -1,27 +1,19 @@
-package com.wora.coupesdefootball.Entity;
+package com.wora.coupesdefootball.DTO.Competition;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "competition")
-public class Competition {
-    @Id
-    private ObjectId id;
+public class CreateCompetitionDTO {
     private String name;
     private int numberOfTeams;
     private List<ObjectId> teamIds;
     private int currentRound;
     private List<ObjectId> roundIds;
-
-    public String getId() {
-        return id != null ? id.toHexString() : null;
-    }
 }

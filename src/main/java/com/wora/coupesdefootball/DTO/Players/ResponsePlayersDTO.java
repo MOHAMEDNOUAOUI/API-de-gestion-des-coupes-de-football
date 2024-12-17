@@ -9,7 +9,7 @@ import org.bson.types.ObjectId;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponsePlayersDTO {
-    private ObjectId id;
+    private String id;
     private String name;
     private String surname;
     private String position;

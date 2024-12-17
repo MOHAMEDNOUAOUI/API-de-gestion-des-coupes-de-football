@@ -11,8 +11,8 @@ public interface  UtilisateurService {
 
     void register(CreateUtilisateurDTO createUtilisateurDTO);
     Page<ResponseUtilisateurDTO> getAllUtilisateurs(Pageable pageable);
-    ResponseUtilisateurDTO getUtilisateurById(ObjectId id);
-    ResponseUtilisateurDTO updateUtilisateur(CreateUtilisateurDTO createUtilisateurDTO , ObjectId id);
-    boolean deleteUtilisateur(ObjectId id);
+    ResponseUtilisateurDTO getUtilisateurById(String id);
+    ResponseUtilisateurDTO updateUtilisateur(CreateUtilisateurDTO createUtilisateurDTO , String id);
+    boolean deleteUtilisateur(String id);
 
 }

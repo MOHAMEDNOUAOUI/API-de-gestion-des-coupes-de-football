@@ -11,11 +11,10 @@ import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface MatchMapper {
-
+    @Mapping(target = "team1" , ignore = true)
+    @Mapping(target = "team2" , ignore = true)
     Match toEntity(CreateMatchDTO createMatchDTO);
 
-//    @Mapping(source = "result" , target = "result")
-//    @Mapping(source = "result.statistics" , target = "result.statistics")
     ResponseMatchDTO toResponse(Match match);
 
 }

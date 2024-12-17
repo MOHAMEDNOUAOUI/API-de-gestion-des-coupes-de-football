@@ -17,4 +17,8 @@ public class Players {
     private String surname;
     private String position;
     private int number;
+
+    public String getId() {
+        return id != null ? id.toHexString() : null;
+    }
 }

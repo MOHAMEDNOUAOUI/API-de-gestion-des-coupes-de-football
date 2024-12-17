@@ -15,8 +15,12 @@ import java.util.List;
 @Document(collection = "round")
 public class Round {
     @Id
-    private String id;
+    private ObjectId id;
     private int roundNumber;
     private ObjectId competitionId;
     private List<ObjectId> matches;
+
+    public String getId() {
+        return id != null ? id.toHexString() : null;
+    }
 }

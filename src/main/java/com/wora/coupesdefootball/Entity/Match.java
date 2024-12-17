@@ -22,6 +22,18 @@ public class Match {
     private MatchResult result;
     private ObjectId winner;
 
+    public String getId() {
+        return id != null ? id.toHexString() : null;
+    }
+
+    public String getTeam1() {
+        return team1 != null ? team1.toHexString() : null;
+    }
+    public String getTeam2() {
+        return team2 != null ? team2.toHexString() : null;
+    }
+
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 public interface TeamMapper {
 
 
-//    @Mapping(target = "players", ignore = true)
+    @Mapping(target = "players", ignore = true)
     Team toEntity(CreateTeamDTO createTeamDto);
     ResponseTeamDTO toResponse(Team team);
 }

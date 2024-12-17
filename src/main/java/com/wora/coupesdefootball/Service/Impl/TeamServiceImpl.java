@@ -39,12 +39,20 @@ public class TeamServiceImpl implements TeamService {
 
         List<ObjectId> playersIds = createTeamDTO.getPlayers().stream().map(Player -> {
             Players pl = playersMapper.toEntity(Player);
-            return playersRepository.save(pl).getId();
+            String id = playersRepository.save(pl).getId();
+            return new ObjectId(id);
         }).toList();
 
+
+
         entity.setPlayers(playersIds);
+        List<Players> PlayersWithString = playersRepository.findAllById(playersIds.stream().map(ObjectId::toString).toList());
         Team team = teamRepository.save(entity);
-        return teamMapper.toResponse(team);
+        ResponseTeamDTO responseTeamDTO = teamMapper.toResponse(team);
+
+        List<ResponsePlayersDTO> responsePlayersDTOs = PlayersWithString.stream().map(playersMapper::toResponse).toList();
+        responseTeamDTO.setPlayers(responsePlayersDTOs);
+        return responseTeamDTO;
     }
 
     @Override
@@ -55,7 +63,8 @@ public class TeamServiceImpl implements TeamService {
         }
         return teams.map(team -> {
             System.out.println(team.getName());
-            List<Players> players = playersRepository.findAllById(team.getPlayers());
+            List<String> playersId = team.getPlayers().stream().map(ObjectId::toString).toList();
+            List<Players> players = playersRepository.findAllById(playersId);
             List<ResponsePlayersDTO> responsePlayersDTOs = players.stream().map(playersMapper::toResponse).toList();
             ResponseTeamDTO responseTeamDTO = teamMapper.toResponse(team);
             responseTeamDTO.setPlayers(responsePlayersDTOs);
@@ -64,7 +73,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public ResponseTeamDTO getTeamById(ObjectId id) {
+    public ResponseTeamDTO getTeamById(String id) {
         if(teamRepository.existsById(id)){
             Team team = teamRepository.findById(id).get();
             return teamMapper.toResponse(team);
@@ -75,7 +84,7 @@ public class TeamServiceImpl implements TeamService {
 
 
     @Override
-    public boolean deleteTeam(ObjectId id) {
+    public boolean deleteTeam(String id) {
         Optional<Team> team = teamRepository.findById(id);
         if (team.isPresent()){
             teamRepository.deleteById(id);
@@ -87,7 +96,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
      @Override
-    public ResponseTeamDTO updateTeam(CreateTeamDTO createTeamDTO , ObjectId id) {
+    public ResponseTeamDTO updateTeam(CreateTeamDTO createTeamDTO , String id) {
         return null;
     }
 }
